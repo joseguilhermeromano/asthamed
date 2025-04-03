@@ -7,6 +7,8 @@ import {
   faMapMarkerAlt,
   faDollarSign,
   faShoppingCart,
+  faChevronDown,
+  faChevronUp,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faWhatsapp,
@@ -15,6 +17,11 @@ import {
   faYoutube,
 } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import linhaOdontologica from '../assets/imgs/linha-odontologica-white.png';
+import linhaEstetica from '../assets/imgs/linha-estetica.png';
+import linhaVeterinaria from '../assets/imgs/linha-veterinaria.png';
+import medicamentosInjetaveis from '../assets/imgs/medicamentos-injetaveis.png';
+import materiaisHospitalares from '../assets/imgs/materiais-hospitalares.png';
 
 const isMenuOpen = ref(false);
 
@@ -35,6 +42,12 @@ const menuItems = [
   { text: 'POLÍTICA DE PRIVACIDADE', link: '/privacidade' },
   { text: 'TERMOS DE USO', link: '/termos' },
 ];
+
+const isDropdownOpen = ref(false);
+
+const toggleDropdown = () => {
+  isDropdownOpen.value = !isDropdownOpen.value;
+};
 </script>
 
 <template>
@@ -87,6 +100,51 @@ const menuItems = [
         </li>
       </ul>
     </nav>
+    <div class="navbar-bottom">
+      <button class="dropdown-title" @click="toggleDropdown">
+        <span>LINHAS DE PRODUTOS</span>
+        <FontAwesomeIcon :icon="isDropdownOpen ? faChevronUp : faChevronDown" />
+      </button>
+
+      <transition name="slide-down">
+        <ul v-if="isDropdownOpen" class="product-list">
+          <li>
+            <img :src="linhaOdontologica" alt="Linha Odontológica" />
+            <span
+              ><a href="/produtos/linha-odontologica"
+                >Linha Odontológica</a
+              ></span
+            >
+          </li>
+          <li>
+            <img :src="linhaEstetica" alt="Linha Estética" />
+            <span><a href="/produtos/linha-estetica">Linha Estética</a></span>
+          </li>
+          <li>
+            <img :src="linhaVeterinaria" alt="Linha Veterinária" />
+            <span
+              ><a href="/produtos/linha-veterinaria">Linha Veterinária</a></span
+            >
+          </li>
+          <li>
+            <img :src="medicamentosInjetaveis" alt="Medicamentos Injetáveis" />
+            <span
+              ><a href="/produtos/medicamentos-injetaveis"
+                >Medicamentos Injetáveis</a
+              ></span
+            >
+          </li>
+          <li>
+            <img :src="materiaisHospitalares" alt="Materiais Hospitalares" />
+            <span
+              ><a href="/produtos/materiais-hospitalares"
+                >Materiais Hospitalares</a
+              ></span
+            >
+          </li>
+        </ul>
+      </transition>
+    </div>
   </header>
   <footer class="mobile-footer">
     <div class="mobile-menu-bar">
@@ -145,6 +203,7 @@ const menuItems = [
 <style scoped>
 /* Fontes */
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap');
 
 .mobile-logo {
   display: flex;
@@ -450,5 +509,98 @@ const menuItems = [
 .slide-enter-from,
 .slide-leave-to {
   transform: translateX(-100%);
+}
+
+.navbar-bottom {
+  background-color: #599aa8;
+  margin: 20px;
+}
+
+.dropdown-title {
+  background: none;
+  border: none;
+  font-weight: bold;
+  font-size: 16px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+  font-family: 'Kanit', sans-serif;
+}
+
+.product-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.product-list li {
+  background-color: #0a3a44;
+  color: white;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  border-bottom: 1px solid white;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+  font-family: 'PT Sans Caption', sans-serif;
+  font-size: 16px;
+}
+
+.product-list li img {
+  width: auto;
+  height: 24.89px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.product-list li span a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  position: relative;
+  padding-bottom: 5px;
+}
+
+.product-list li:hover > img {
+  transition: transform 0.3s ease-in-out;
+  transform: scaleX(-1);
+}
+
+.product-list li span a::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 2px;
+  width: 0;
+  height: 1px;
+  background-color: white;
+  transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+}
+
+.product-list li span a:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+.slide-down-enter-active,
+.slide-down-leave-active {
+  transition: max-height 0.4s ease-in-out;
+  overflow: hidden;
+}
+
+.slide-down-enter-from,
+.slide-down-leave-to {
+  max-height: 0;
+}
+
+.slide-down-enter-to,
+.slide-down-leave-from {
+  max-height: 300px;
 }
 </style>
