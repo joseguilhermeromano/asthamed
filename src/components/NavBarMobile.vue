@@ -22,6 +22,7 @@ import linhaEstetica from '../assets/imgs/linha-estetica.png';
 import linhaVeterinaria from '../assets/imgs/linha-veterinaria.png';
 import medicamentosInjetaveis from '../assets/imgs/medicamentos-injetaveis.png';
 import materiaisHospitalares from '../assets/imgs/materiais-hospitalares.png';
+import SearchBar from './SearchBar.vue';
 
 const isMenuOpen = ref(false);
 
@@ -100,6 +101,7 @@ const toggleDropdown = () => {
         </li>
       </ul>
     </nav>
+    <SearchBar />
     <div class="navbar-bottom">
       <button class="dropdown-title" @click="toggleDropdown">
         <span>LINHAS DE PRODUTOS</span>
@@ -226,7 +228,7 @@ const toggleDropdown = () => {
   align-items: center;
   margin: 0 auto;
   width: 100%;
-  padding: 20px 0px;
+  padding: 0px;
 }
 
 .list-top {
